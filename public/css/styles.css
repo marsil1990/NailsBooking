@@ -71,7 +71,7 @@ p {
 .navigation {
   display: flex;
   justify-content: right;
-  gap: 40%;
+  gap: 30%;
   border-bottom: 1px var(--pink-main) solid;
   border-top: 1px var(--pink-main) solid;
 }
