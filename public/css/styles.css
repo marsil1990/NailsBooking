@@ -15,7 +15,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  max-width: 1100px;
+  min-width: 380px;
   margin: 10px auto;
   background-color: #ffffff;
   background-image: radial-gradient(#f8bbd0 1px, transparent 1px);
@@ -32,6 +32,7 @@ h3 {
 h1 {
   margin-left: 18rem;
   font-size: 2.8rem;
+  margin-left: 10px;
 }
 
 p {
@@ -68,14 +69,42 @@ p {
 /* Navigation */
 
 .navigation {
+  display: flex;
+  justify-content: right;
+  gap: 40%;
   border-bottom: 1px var(--pink-main) solid;
   border-top: 1px var(--pink-main) solid;
 }
-.navigation ul {
+
+.humber {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  font-size: 26px;
+  color: #e91e63; /* rosa fuerte */
+}
+
+.humber::before {
+  content: "☰";
+}
+
+.humber.active::before {
+  content: "✕";
+}
+
+.menu {
+  display: none;
+}
+
+.menu.active {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   list-style: none;
+  gap: 10px;
 }
 
 .navigation ul li {
@@ -101,9 +130,16 @@ p {
 .section-hero img {
   display: block;
   margin: 5px auto;
+  display: block;
+  width: 90%;
+  height: auto;
 }
 
-.section-hero p {
+.p-big {
+  display: none;
+}
+
+.p-small {
   position: absolute;
   text-align: center;
   top: 5%;
@@ -111,7 +147,7 @@ p {
   text-decoration: none;
   font-family: "Playfair Display", serif;
   background-color: transparent;
-  font-size: 1.6rem;
+  font-size: 0.9rem;
   color: var(--text-dark);
   font-weight: 900;
 }
@@ -119,7 +155,7 @@ p {
 /* section marquee  (cartelera)*/
 .marquee {
   overflow: hidden;
-  max-width: 900px;
+  max-width: 500px;
   background: #fce4ec;
   padding: 20px 0;
   margin: 10px auto;
@@ -132,6 +168,11 @@ p {
   gap: 24px;
   width: max-content;
   animation: scroll 20s linear infinite;
+}
+
+.marquee-track img {
+  width: 100px;
+  height: auto;
 }
 
 .item {
@@ -163,6 +204,7 @@ p {
   flex-wrap: wrap;
   justify-content: space-evenly;
   gap: 5px;
+  margin: 5px 10px;
 }
 
 .section-services h2 {
@@ -233,4 +275,111 @@ footer {
 
 footer p {
   text-align: center;
+}
+
+/* FORMS AND LOGIN*/
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-register-form,
+.classification-form,
+.inventory-form {
+  background-color: var(--pink-main);
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  width: 300px;
+}
+
+.form-container label {
+  display: block;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 4px;
+}
+
+input:required:invalid,
+input:focus:invalid {
+  border-left: 5px solid red;
+}
+
+#loginForm input[type="password"]:required:invalid {
+  border-left: 5px solid white;
+}
+
+input:required:valid {
+  /* insert your own styles for valid form input */
+  border-left: 5px solid green;
+}
+
+#loginForm input[type="password"]:required:valid {
+  border-left: 5px solid white;
+}
+
+#loginForm button {
+  height: 40px;
+  width: 60px;
+}
+
+@media only screen and (min-width: 954px) {
+  body {
+    max-width: 1100px;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+  }
+
+  .humber {
+    display: none;
+  }
+
+  .navigation {
+    display: block;
+  }
+
+  .p-big {
+    display: block;
+    position: absolute;
+    text-align: center;
+    top: 5%;
+    left: 7%;
+    text-decoration: none;
+    font-family: "Playfair Display", serif;
+    background-color: transparent;
+    font-size: 1.6rem;
+    color: var(--text-dark);
+    font-weight: 900;
+  }
+
+  .p-small {
+    display: none;
+  }
+
+  .marquee {
+    max-width: 900px;
+  }
+
+  .marquee-track img {
+    width: 200px;
+    height: auto;
+  }
 }

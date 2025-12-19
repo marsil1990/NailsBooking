@@ -2,7 +2,7 @@
  * Require Statements
  *************************/
 const session = require("express-session");
-// const pool = require("./database/");
+const pool = require("./database/");
 const express = require("express");
 const bodyParser = require("body-parser");
 const env = require("dotenv").config();
@@ -12,22 +12,23 @@ const expressLayouts = require("express-ejs-layouts");
 const baseController = require("./controllers/baseController");
 const utilities = require("./utilities/index");
 const cookieParser = require("cookie-parser");
+const accountRoute = require("./routes/accountRoute");
 
 /* ***********************
  * Middleware
  * ************************/
-// app.use(
-//   session({
-//     store: new (require("connect-pg-simple")(session))({
-//       createTableIfMissing: true,
-//       pool,
-//     }),
-//     secret: process.env.SESSION_SECRET,
-//     resave: true,
-//     saveUninitialized: true,
-//     name: "sessionId",
-//   })
-// );
+app.use(
+  session({
+    store: new (require("connect-pg-simple")(session))({
+      createTableIfMissing: true,
+      pool,
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    name: "sessionId",
+  })
+);
 
 // Express Messages Middleware
 app.use(require("connect-flash")());
@@ -58,6 +59,8 @@ app.use(static);
 
 app.get("/", utilities.handleErrors(baseController.buildHome));
 
+app.use("/account", accountRoute);
+
 // error de robots
 app.get("/robots.txt", (req, res) => res.status(204).end());
 // File Not Found Route - must be last route in list
@@ -70,7 +73,6 @@ app.use(async (req, res, next) => {
  * Place after all other middleware
  *************************/
 app.use(async (err, req, res, next) => {
-  //   let nav = await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
   if (err.status == 404) {
     message = err.message;
@@ -80,7 +82,6 @@ app.use(async (err, req, res, next) => {
   res.render("errors/error", {
     title: err.status || "Server Error",
     message,
-    // nav,
   });
 });
 
