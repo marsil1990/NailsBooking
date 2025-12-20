@@ -42,6 +42,14 @@ p {
   color: #333333;
 }
 
+/* Flash */
+
+.notice {
+  color: red;
+  text-align: center;
+  list-style: none;
+}
+
 /* Header*/
 
 #top-header {

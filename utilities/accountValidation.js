@@ -51,6 +51,26 @@ validate.registrationRules = () => {
   ];
 };
 
+validate.loginRules = () => {
+  return [
+    // valid email is required and cannot already exist in the database
+    body("account_email")
+      .trim()
+      .isEmail()
+      .withMessage("A valid email is required.")
+      .bail()
+      .normalizeEmail() // refer to validator.js docs
+      .custom(async (account_email) => {
+        const emailExists = await accountModel.checkExistingEmail(
+          account_email
+        );
+        if (!emailExists) {
+          throw new Error("Email not exists.");
+        }
+      }),
+  ];
+};
+
 validate.checkRegData = async (req, res, next) => {
   const { account_firstname, account_lastname, account_email } = req.body;
   let errors = [];
@@ -66,6 +86,22 @@ validate.checkRegData = async (req, res, next) => {
     return;
   }
   next();
+};
+
+validate.checkLogin = async (req, res, next) => {
+  const { account_email } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.render("account/login", {
+      errors,
+      title: "Login",
+      account_email: "",
+    });
+    return;
+  } else {
+    next();
+  }
 };
 
 module.exports = validate;

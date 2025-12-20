@@ -23,7 +23,18 @@ async function resgister(fname, lname, email, password) {
   }
 }
 
+async function getUserByEmail(email) {
+  try {
+    const query = "SELECT * FROM account WHERE account_email = $1";
+    const result = await pool.query(query, [email]);
+    return result.rows[0];
+  } catch (error) {
+    return error.message;
+  }
+}
+
 module.exports = {
   checkExistingEmail,
   resgister,
+  getUserByEmail,
 };
