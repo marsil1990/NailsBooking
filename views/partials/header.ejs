@@ -6,6 +6,9 @@
     </span>
 
     <div id="tools">
-        <a title="Click to log in" href="/account/login">Mi cuenta</a>
+        <a title="Click to log in" href="/account">Mi cuenta</a>
+        <% if (locals.loggedin) { %>
+            <div> <a class="logout" title="Click to log out" href="/account/logout">Logout</a></div>
+            <% } %>
     </div>
 </header>

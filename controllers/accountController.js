@@ -95,8 +95,31 @@ async function accountLogin(req, res) {
       });
     }
     req.flash("notice", `Welcome! ${user.account_firstname} `);
-    return res.redirect("/account/login");
+    return res.redirect("/account");
   }
+}
+
+async function logout(req, res) {
+  try {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return next(err);
+      }
+      res.clearCookie("sessionId");
+      res.clearCookie("jwt");
+
+      return res.status(400).redirect("/");
+    });
+  } catch (erro) {
+    console.error("Logout error:", error);
+  }
+}
+
+async function buildManagement(req, res) {
+  res.render("account/management", {
+    title: "Mi cuenta",
+  });
 }
 
 module.exports = {
@@ -104,4 +127,6 @@ module.exports = {
   buildRegister,
   register,
   accountLogin,
+  buildManagement,
+  logout,
 };

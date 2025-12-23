@@ -13,6 +13,7 @@ const baseController = require("./controllers/baseController");
 const utilities = require("./utilities/index");
 const cookieParser = require("cookie-parser");
 const accountRoute = require("./routes/accountRoute");
+const serviceRoute = require("./routes/serviceRoute");
 
 /* ***********************
  * Middleware
@@ -41,6 +42,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(cookieParser());
 
+app.use(utilities.checkJWTToken);
+
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -60,6 +63,8 @@ app.use(static);
 app.get("/", utilities.handleErrors(baseController.buildHome));
 
 app.use("/account", accountRoute);
+
+app.use("/service", serviceRoute);
 
 // error de robots
 app.get("/robots.txt", (req, res) => res.status(204).end());

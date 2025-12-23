@@ -1,0 +1,38 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } %>
+
+        <%- messages() %>
+
+            <section class="add-form-container">
+                <form class="add-service-form" action="/service/new-service" method="POST"
+                    enctype="multipart/form-data">
+
+                    <label for="service_name">Nombre</label>
+                    <input id="service_name" name="service_name" required minlength="3"
+                        pattern="^[A-Za-z0-9][A-Za-z0-9 \-]{2,}$"
+                        title="Mínimo 3 caracteres. Solo letras, números, espacios y guiones."
+                        value="<%= locals.service_name || '' %>" placeholder="Min of 3 Characters">
+
+                    <label for="service_description">Description</label>
+                    <textarea id="service_description" name="service_description" required minlength="10"
+                        placeholder="Brief description (min 10 chars)"
+                        rows="4"><%=  locals.serivce_description  %></textarea>
+
+
+                    <label for="service_price">Price</label>
+                    <input id="service_price" name="service_price" required inputmode="decimal"
+                        pattern="^\d+(?:\.\d{1,2})?$" title="Número entero o decimal con punto (ej: 12000 o 12000.99)"
+                        value="<%= locals.service_price  %>" placeholder="Decimal or integer">
+
+                    <label for="service_image">Agregar Imagen</label>
+                    <input id="service_imageurl" name="service_imageurl" type="file"
+                        accept="image/png,image/jpeg,image/webp" required>
+
+                    <span class="images">Optimizar la imagen: 200x200 y menos de 70KB</span>
+
+                    <button type="submit">Agregar Servicio</button>
+                </form>
+            </section>

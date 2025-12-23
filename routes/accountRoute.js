@@ -25,4 +25,12 @@ router.post(
   utilities.handleErrors(accountController.accountLogin)
 );
 
+router.get(
+  "/",
+  utilities.authorize,
+  utilities.handleErrors(accountController.buildManagement)
+);
+
+router.get("/logout", utilities.handleErrors(accountController.logout));
+
 module.exports = router;

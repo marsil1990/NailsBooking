@@ -1,0 +1,15 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+
+    <% } %>
+
+        <%- messages() %>
+            <h2>Welcome <%= userName %>
+            </h2>
+            <a href="/accountupdate/<%account_id%>">Edita tu información</a>
+            <% if(type==="Admin" ) { %>
+                <h3>Maneja tus servicios</h3>
+                <p><a href="/service">Gestión de servicios</a></p>
+                <% } %>

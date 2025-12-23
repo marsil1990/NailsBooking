@@ -1,10 +1,15 @@
 :root {
-  --pink-main: #e91e63; /* rosa fuerte (primary) */
-  --pink-dark: #c2185b; /* rosa profundo */
-  --pink-soft: #f8bbd0; /* rosa suave de apoyo */
-  --pink-light: #f4e5ea; /* fondo */
-  --white: #ffffff;
-  --text-dark: #2b2b2b;
+  --pink-main: #e91e63;
+  --pink-dark: #c2185b;
+  --pink-soft: #fce4ec;
+
+  --bg: #ffffff;
+  --text: #2b2b2b;
+  --muted: #6b7280;
+
+  --border: rgba(0, 0, 0, 0.12);
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.1);
+  --radius: 18px;
 }
 
 * {
@@ -341,6 +346,269 @@ input:required:valid {
 #loginForm button {
   height: 40px;
   width: 60px;
+}
+
+/*TABLE*/
+.servicesTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Encabezado */
+.servicesTable thead {
+  background: #f8bbd0; /* rosa suave */
+}
+
+.servicesTable th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+/* Celdas */
+.servicesTable td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+  font-size: 14px;
+  color: #444;
+}
+
+/* Última fila sin borde */
+.servicesTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Hover */
+.servicesTable tbody tr:hover {
+  background: #fce4ec;
+}
+
+/* Columna descripción */
+.servicesTable .description {
+  max-width: 350px;
+  line-height: 1.5;
+}
+
+/* Precio */
+.servicesTable .price {
+  font-weight: 600;
+  color: #c2185b;
+  white-space: nowrap;
+}
+
+/* Acciones */
+.servicesTable .actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Botones */
+.servicesTable a {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.servicesTable a.edit {
+  background: #e91e63;
+  color: white;
+}
+
+.servicesTable a.edit:hover {
+  background: #c2185b;
+}
+
+.servicesTable a.delete {
+  background: #f44336;
+  color: white;
+}
+
+.servicesTable a.delete:hover {
+  background: #d32f2f;
+}
+
+/* =========
+   Forms (Add/Edit/Delete Service)
+   ========= */
+
+/* Containers (section) */
+.add-form-container,
+.edit-form-container,
+.delete-form-container {
+  max-width: 720px;
+  margin: 28px auto;
+  padding: 0 16px;
+}
+
+/* Form card */
+.add-service-form,
+.edit-form,
+.delete-form {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  display: grid;
+  gap: 12px;
+}
+
+/* Labels */
+.add-service-form label,
+.edit-form label,
+.delete-form label {
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 6px;
+}
+
+/* Inputs + textarea */
+.add-service-form input,
+.add-service-form textarea,
+.edit-form input,
+.edit-form textarea,
+.delete-form input,
+.delete-form textarea {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+/* Textarea */
+.add-service-form textarea,
+.edit-form textarea,
+.delete-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Focus */
+.add-service-form input:focus,
+.add-service-form textarea:focus,
+.edit-form input:focus,
+.edit-form textarea:focus,
+.delete-form input:focus,
+.delete-form textarea:focus {
+  border-color: rgba(233, 30, 99, 0.6);
+  box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.12);
+}
+
+/* Disabled fields (delete form) */
+.delete-form input:disabled,
+.delete-form textarea:disabled {
+  background: #f6f7f9;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Help text */
+.images,
+.add-service-form .images,
+.edit-form .images,
+.delete-form .images {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-top: -2px;
+}
+
+/* Current image preview */
+.edit-form img,
+.delete-form img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+/* File input (simple + clean) */
+.add-service-form input[type="file"],
+.edit-form input[type="file"] {
+  padding: 10px;
+  background: #fff;
+}
+
+.add-service-form input[type="file"]::file-selector-button,
+.edit-form input[type="file"]::file-selector-button {
+  border: 0;
+  background: var(--pink-soft);
+  color: var(--pink-dark);
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.add-service-form input[type="file"]::file-selector-button:hover,
+.edit-form input[type="file"]::file-selector-button:hover {
+  background: rgba(233, 30, 99, 0.16);
+}
+
+/* Buttons */
+.add-service-form button,
+.edit-form button,
+.delete-form button {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, var(--pink-main), var(--pink-dark));
+  box-shadow: 0 12px 30px rgba(233, 30, 99, 0.25);
+  transition: transform 150ms ease, filter 150ms ease, opacity 150ms ease;
+}
+
+.add-service-form button:hover,
+.edit-form button:hover,
+.delete-form button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.03);
+}
+
+.add-service-form button:active,
+.edit-form button:active,
+.delete-form button:active {
+  transform: translateY(0px);
+}
+
+/* Disabled button (edit form starts disabled) */
+.edit-form button[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Optional: make Delete look “danger” without changing HTML */
+.delete-form button {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  box-shadow: 0 12px 30px rgba(239, 68, 68, 0.2);
+}
+
+/* Headings */
+h1 {
+  max-width: 720px;
+  margin: 22px auto 12px;
+  padding: 0 16px;
+  color: var(--text);
 }
 
 @media only screen and (min-width: 954px) {
