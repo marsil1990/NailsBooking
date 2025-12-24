@@ -122,6 +122,66 @@ async function buildManagement(req, res) {
   });
 }
 
+async function getAccountToEdit(req, res) {
+  const id = req.params.account_id;
+  const account = await accountModel.getAccountById(id);
+  if (account) {
+    const { account_id, account_firstname, account_lastname, account_email } =
+      account;
+    res.render("account/account-edit", {
+      title: "Edita tu información",
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+      errors: null,
+    });
+  }
+}
+
+async function editAccount(req, res) {
+  const { account_id, account_firstname, account_lastname, account_email } =
+    req.body;
+  const accountEdit = await accountModel.updateAccount(
+    account_id,
+    account_firstname,
+    account_lastname,
+    account_email
+  );
+  if (accountEdit === 1) {
+    req.flash("notice", "Su información ha sido editada correctamente");
+    res.redirect("/account");
+  } else {
+    req.flash("notice", "Error durante el proceso de edición");
+    res.status(500).render("account/account-edit", {
+      title: "Edita tu información",
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+      errors: null,
+    });
+  }
+}
+
+async function editPassword(req, res) {
+  const { account_id, account_password } = req.body;
+  try {
+    const hashedPassword = await bcrypt.hash(account_password, 10);
+    const result = await accountModel.editPassword(account_id, hashedPassword);
+    if (result === 1) {
+      req.flash("notice", "La contraseña ha sido modificada correctamente");
+      res.redirect("/account");
+    } else {
+      req.flash("notice", "La contraseña no ha sido modificada correctamente");
+      res.redirect("/account");
+    }
+  } catch (error) {
+    console.error("Error editando password", error.message);
+    res.status(500).redirect("/account");
+  }
+}
+
 module.exports = {
   buildLogin,
   buildRegister,
@@ -129,4 +189,7 @@ module.exports = {
   accountLogin,
   buildManagement,
   logout,
+  getAccountToEdit,
+  editAccount,
+  editPassword,
 };

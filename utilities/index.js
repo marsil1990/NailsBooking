@@ -159,4 +159,14 @@ Util.authorize = (req, res, next) => {
   }
 };
 
+Util.authorizeAdmin = (req, res, next) => {
+  if (res.locals.loggedin && res.locals.account_type === "Admin") {
+    next();
+    return;
+  } else {
+    req.flash("notice", "Please Log in");
+    res.redirect("/account/login");
+  }
+};
+
 module.exports = Util;
