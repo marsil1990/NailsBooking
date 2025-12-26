@@ -160,7 +160,7 @@ Util.authorize = (req, res, next) => {
 };
 
 Util.authorizeAdmin = (req, res, next) => {
-  if (res.locals.loggedin && res.locals.account_type === "Admin") {
+  if (res.locals.loggedin && res.locals.type === "Admin") {
     next();
     return;
   } else {
