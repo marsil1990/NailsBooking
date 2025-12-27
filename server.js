@@ -14,6 +14,7 @@ const utilities = require("./utilities/index");
 const cookieParser = require("cookie-parser");
 const accountRoute = require("./routes/accountRoute");
 const serviceRoute = require("./routes/serviceRoute");
+const appointmentRoute = require("./routes/appointmentRoute");
 
 /* ***********************
  * Middleware
@@ -65,6 +66,8 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 app.use("/account", accountRoute);
 
 app.use("/service", serviceRoute);
+
+app.use("/appointment", appointmentRoute);
 
 // error de robots
 app.get("/robots.txt", (req, res) => res.status(204).end());

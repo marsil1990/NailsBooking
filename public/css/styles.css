@@ -617,6 +617,125 @@ h1 {
   width: 100%;
 }
 
+/*BOOKING*/
+/* ========== Booking Section ========== */
+.booking {
+  max-width: 520px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+/* Form container */
+.booking-form {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(233, 30, 99, 0.12);
+}
+
+/* Title-like spacing (si luego agregás un h2 arriba del form) */
+.booking-form > * + * {
+  margin-top: 12px;
+}
+
+/* Labels */
+.booking-form label {
+  display: block;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #2b2b2b;
+  margin-top: 20px;
+}
+
+/* Inputs + Select */
+.booking-form input[type="email"],
+.booking-form select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease;
+  margin-top: 2px;
+}
+
+/* Focus state (rosa fuerte) */
+.booking-form input[type="email"]:focus,
+.booking-form select:focus {
+  border-color: #e91e63;
+  box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.15);
+}
+
+/* Placeholder */
+.booking-form input::placeholder {
+  color: rgba(43, 43, 43, 0.45);
+}
+
+/* Select improvements */
+.booking-form select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #e91e63 50%),
+    linear-gradient(135deg, #e91e63 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+/* If grid shows <p> No hay horarios... */
+.booking-form p {
+  margin: 10px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(233, 30, 99, 0.08);
+  border: 1px dashed rgba(233, 30, 99, 0.35);
+  color: #c2185b;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+}
+
+/* Button */
+.booking-form button[type="submit"] {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #e91e63, #c2185b);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(233, 30, 99, 0.28);
+  transition: transform 0.12s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.booking-form button[type="submit"]:hover {
+  filter: brightness(1.03);
+  box-shadow: 0 12px 26px rgba(233, 30, 99, 0.35);
+  transform: translateY(-1px);
+}
+
+.booking-form button[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 18px rgba(233, 30, 99, 0.28);
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .booking-form {
+    padding: 18px;
+    border-radius: 16px;
+  }
+}
+
 @media only screen and (min-width: 954px) {
   body {
     max-width: 1100px;

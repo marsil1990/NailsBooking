@@ -111,6 +111,30 @@ Util.buildServicesAdmin = async (data) => {
   return grid;
 };
 
+Util.buildSelectdates = async (dates) => {
+  grid = "";
+  if (dates.length === 0) {
+    grid = "<p> No hay horarios disponibles </p>";
+  } else {
+    grid = '<select name="date" id="date">';
+    grid += "<option> Loading ... </option>";
+    dates.forEach((d) => {
+      grid += `<option value ="${d}">`;
+      grid += d.toLocaleString("es-UY", {
+        weekday: "short",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      grid += "</option>";
+    });
+    grid += "</select>";
+  }
+  return grid;
+};
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for

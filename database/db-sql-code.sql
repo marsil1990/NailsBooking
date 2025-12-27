@@ -17,3 +17,15 @@ CREATE TABLE IF NOT EXISTS public.services (
     service_price numeric(9, 0) NOT NULL,
     CONSTRAINT service_pkey PRIMARY KEY (serivce_id)
 );
+CREATE TABLE IF NOT EXISTS public.reservations(
+    reservation_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    account_id INT NOT NULL REFERENCES account(account_id) ON DELETE CASCADE,
+    appointment_datatime TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    CONSTRAINT reservations_unique UNIQUE(appointment_datatime)
+);
+CREATE TABLE IF NOT EXISTS public.reservations_services(
+    reservation_id INTEGER NOT NULL REFERENCES reservations(reservation_id) ON DELETE CASCADE,
+    service_id INTEGER NOT NULL REFERENCES services(service_id) ON DELETE RESTRICT,
+    PRIMARY KEY (reservation_id, service_id)
+);
