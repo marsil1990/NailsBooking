@@ -1,0 +1,51 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+
+    <% } %>
+
+        <section class="management-vacations schedule-not-available">
+            <form class="management-vacations-form" action="/appointment/managementReservations" method="post">
+
+
+                <label for="start-day">Elige el día que comienza sus vacaciones</label>
+                <input type="date" id="start-day" name="startDay">
+
+                <label for="end-day">Elige el día que finaliza sus vacaciones</label>
+                <input type="date" id="end-day" name="endDay">
+
+                <button type="submit">Ingresa tus vacaciones</button>
+
+            </form>
+
+
+            <form class="schedule-not-available-Form" action="/appointment/schedule-not-available" method="post">
+
+
+                <label for="not-available">Elige el día</label>
+                <input type="date" id="not-available" name="not-available">
+
+                <label for="end-day">Eliminar las siguientes horas de la agends</label>
+                <div id="radioElement">
+
+                </div>
+               
+
+                <button type="submit">Ingresa tus vacaciones</button>
+            </form>
+
+        </section>
+
+        <%- messages() %>
+            <% if (errors) { %>
+                <ul class="notice">
+                    <% errors.array().forEach(error=> { %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
+
+                    <script src="../../js/scheduleNotAvailableForm.js"></script>

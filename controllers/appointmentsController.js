@@ -35,7 +35,42 @@ async function booking(req, res) {
   }
 }
 
+async function getManagementReservations(req, res) {
+  res.render("appointment/appointment-management", {
+    title: "Gestiona las reservas",
+    errors: null,
+  });
+}
+
+async function managemenReservations(req, res) {
+  const start = new Date(req.body.startDay);
+  const end = new Date(req.body.endDay);
+  const insertVacation = await reservationModel.insertVacation(start, end);
+  if (insertVacation === 1) {
+    req.flash("notice", "Las vacaciones se han agendado correctamente");
+    res.redirect("/appointment/managementReservations");
+  } else {
+    req.flash(
+      "notice",
+      "Las vacaciones no se han agendado correctamente, intentelo de nuevo"
+    );
+    res.redirect("/appointment/managementReservations");
+  }
+}
+
+async function getAvailableDates(req, res) {
+  try {
+    const dates = await utilitiesDate.availableDatesForBook();
+    res.json({ ok: true, dates });
+  } catch (error) {
+    console.error(err);
+    res.status(500).json({ ok: false, message: "DB error" });
+  }
+}
 module.exports = {
   appointments,
   booking,
+  getManagementReservations,
+  managemenReservations,
+  getAvailableDates,
 };

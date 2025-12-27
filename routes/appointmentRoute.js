@@ -16,4 +16,19 @@ router.post(
   utilities.handleErrors(appointmentsController.booking)
 );
 
+router.get(
+  "/managementReservations",
+  utilities.handleErrors(appointmentsController.getManagementReservations)
+);
+
+router.post(
+  "/managementReservations",
+  utilities.handleErrors(appointmentsController.managemenReservations)
+);
+
+router.get(
+  "/avaiable-dates",
+  utilities.handleErrors(appointmentsController.getAvailableDates)
+);
+
 module.exports = router;

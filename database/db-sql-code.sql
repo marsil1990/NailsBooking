@@ -29,3 +29,13 @@ CREATE TABLE IF NOT EXISTS public.reservations_services(
     service_id INTEGER NOT NULL REFERENCES services(service_id) ON DELETE RESTRICT,
     PRIMARY KEY (reservation_id, service_id)
 );
+CREATE TABLE IF NOT EXISTS public.vacation(
+    vacation_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    dateStart TIMESTAMP NOT NULL,
+    dateEnd TIMESTAMP NOT NULL,
+);
+CREATE TABLE IF NOT EXISTS public.vacation(
+    vacation_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    dateStart TIMESTAMP NOT NULL,
+    dateEnd TIMESTAMP NOT NULL,
+);
