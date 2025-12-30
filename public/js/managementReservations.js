@@ -75,7 +75,7 @@ async function buildReservationsAdmin(data) {
         element.account_id +
         ">Editar</a></td>";
       grid +=
-        "<td> <a href= appointment/delete/" +
+        "<td> <a href= delete/" +
         element.reservation_id +
         "/" +
         element.account_id +

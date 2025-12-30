@@ -3,6 +3,7 @@ const utilities = require("../utilities/index");
 const reservationModel = require("../models/reservation-model");
 const serviceModel = require("../models/service-model");
 const accountModel = require("../models/account-model");
+const reservationServiceModel = require("../models/reservation-service-model");
 
 async function appointments(req, res) {
   const dates = await utilitiesDate.availableDatesForBook();
@@ -97,7 +98,8 @@ async function disableHours(req, res) {
   }
 }
 
-async function editReservations(req, res) {
+async function getToEeditReservations(req, res) {
+  console.log(req.params);
   const services = await serviceModel.getAllservices();
   const selectList = await utilities.buildSelectServices(services);
   const account = await accountModel.getAccountById(req.params.account_id);
@@ -108,7 +110,24 @@ async function editReservations(req, res) {
     account_firstname: account.account_firstname,
     account_lastname: account.account_lastname,
     account_email: account.account_email,
+    reservation_id: req.params.reservation_id,
   });
+}
+
+async function editReservations(req, res) {
+  const { serviceReservations, reservation_id } = req.body;
+  const insertToreservationClient =
+    await reservationServiceModel.insertServiceToreservation(
+      reservation_id,
+      serviceReservations
+    );
+  if (insertToreservationClient === 1) {
+    req.flash("notice", "Se editado con exito");
+    res.redirect("/appointment/managementReservations");
+  } else {
+    req.flash("notice", "Error en el preceso de edición");
+    res.redirect("/appointment/managementReservations");
+  }
 }
 
 module.exports = {
@@ -119,5 +138,6 @@ module.exports = {
   getAvailableDates,
   disableHours,
   getReservationsMadeByClients,
+  getToEeditReservations,
   editReservations,
 };

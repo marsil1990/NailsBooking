@@ -5,7 +5,7 @@
     <% } %>
 
         <section class="edit-reservation-form-container">
-            <form class="edit-reservation-form" action="/account/register" method="post">
+            <form class="edit-reservation-form" action="/appointment/edit" method="post">
 
                 <label for="firstName">First Name:</label>
                 <input type="text" id="firstName" name="account_firstname" required
@@ -19,7 +19,9 @@
                 <input type="email" id="email" name="account_email" required value="<%= locals.account_email %>"
                     placeholder="Enter a valid email address" disabled>
 
-                <select name="service-reservations" id="service-reservations">
+                <input type="number" name="reservation_id" value="<%= locals.reservation_id %>" hidden>
+
+                <select name="serviceReservations" id="serviceReservations">
                     <%- selectList %>
                 </select>
 

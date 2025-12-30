@@ -18,11 +18,13 @@ router.post(
 
 router.get(
   "/managementReservations",
+  utilities.authorizeAdmin,
   utilities.handleErrors(appointmentsController.getManagementReservations)
 );
 
 router.post(
   "/managementReservations",
+  utilities.authorizeAdmin,
   utilities.handleErrors(appointmentsController.managemenReservations)
 );
 
@@ -33,16 +35,25 @@ router.get(
 
 router.post(
   "/schedule-not-available",
+  utilities.authorizeAdmin,
   utilities.handleErrors(appointmentsController.disableHours)
 );
 
 router.get(
   "/reservations",
+  utilities.authorizeAdmin,
   utilities.handleErrors(appointmentsController.getReservationsMadeByClients)
 );
 
 router.get(
   "/edit/:reservation_id/:account_id",
+  utilities.authorizeAdmin,
+  utilities.handleErrors(appointmentsController.getToEeditReservations)
+);
+
+router.post(
+  "/edit",
+  utilities.authorizeAdmin,
   utilities.handleErrors(appointmentsController.editReservations)
 );
 module.exports = router;
