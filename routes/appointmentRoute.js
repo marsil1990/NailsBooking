@@ -40,4 +40,9 @@ router.get(
   "/reservations",
   utilities.handleErrors(appointmentsController.getReservationsMadeByClients)
 );
+
+router.get(
+  "/edit/:reservation_id/:account_id",
+  utilities.handleErrors(appointmentsController.editReservations)
+);
 module.exports = router;

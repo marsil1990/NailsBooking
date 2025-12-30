@@ -1,6 +1,8 @@
 const utilitiesDate = require("../utilities/available-Dates");
 const utilities = require("../utilities/index");
 const reservationModel = require("../models/reservation-model");
+const serviceModel = require("../models/service-model");
+const accountModel = require("../models/account-model");
 
 async function appointments(req, res) {
   const dates = await utilitiesDate.availableDatesForBook();
@@ -94,6 +96,21 @@ async function disableHours(req, res) {
     res.status(500).redirect("/appointment/managementReservations");
   }
 }
+
+async function editReservations(req, res) {
+  const services = await serviceModel.getAllservices();
+  const selectList = await utilities.buildSelectServices(services);
+  const account = await accountModel.getAccountById(req.params.account_id);
+  res.render("appointment/appointment-edit", {
+    title: "Editar",
+    selectList,
+    errors: null,
+    account_firstname: account.account_firstname,
+    account_lastname: account.account_lastname,
+    account_email: account.account_email,
+  });
+}
+
 module.exports = {
   appointments,
   booking,
@@ -102,4 +119,5 @@ module.exports = {
   getAvailableDates,
   disableHours,
   getReservationsMadeByClients,
+  editReservations,
 };

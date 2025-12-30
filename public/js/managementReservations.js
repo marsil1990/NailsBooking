@@ -69,17 +69,13 @@ async function buildReservationsAdmin(data) {
       }
       grid += "<td> " + created_at + "</td>";
       grid +=
-        "<td> <a href= service/" +
-        element.service_id +
-        "/" +
+        "<td> <a href= edit/" +
         element.reservation_id +
         "/" +
         element.account_id +
         ">Editar</a></td>";
       grid +=
-        "<td> <a href= service/delete/" +
-        element.service_id +
-        "/" +
+        "<td> <a href= appointment/delete/" +
         element.reservation_id +
         "/" +
         element.account_id +

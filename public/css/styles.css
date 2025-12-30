@@ -940,6 +940,215 @@ h1 {
   }
 }
 
+/*EDIT RESERVATIONS ADMIN*/
+/* =========================
+   Edit reservation section
+   ========================= */
+
+.edit-reservation-form-container {
+  max-width: 980px;
+  margin: 28px auto;
+  padding: 0 16px;
+}
+
+.edit-reservation-form {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  display: grid;
+  gap: 12px;
+}
+
+.edit-reservation-form label {
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 6px;
+}
+
+.edit-reservation-form input,
+.edit-reservation-form select {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* disabled inputs: prolijos y legibles */
+.edit-reservation-form input:disabled {
+  background: #f7f7f8;
+  color: #555;
+  cursor: not-allowed;
+  opacity: 1; /* para que no se vea “lavado” */
+}
+
+.edit-reservation-form select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.edit-reservation-form input:focus,
+.edit-reservation-form select:focus {
+  border-color: rgba(233, 30, 99, 0.5);
+  box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.12);
+}
+
+/* botón */
+.edit-reservation-form button {
+  margin-top: 8px;
+  width: fit-content;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 14px;
+  background: var(--pink-main);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 10px 26px rgba(233, 30, 99, 0.25);
+}
+
+.edit-reservation-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(233, 30, 99, 0.32);
+}
+
+.edit-reservation-form button:active {
+  transform: translateY(0);
+  opacity: 0.9;
+}
+
+/* =========================
+   Admin table (servicesTable)
+   ========================= */
+
+.servicesTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden; /* redondeo real */
+  box-shadow: var(--shadow);
+  margin: 22px 0;
+}
+
+.servicesTable thead {
+  background: var(--pink-soft);
+}
+
+.servicesTable thead td {
+  font-weight: 800;
+  color: var(--text);
+  padding: 14px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.servicesTable td {
+  padding: 14px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  color: var(--text);
+  vertical-align: top;
+}
+
+.servicesTable tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.servicesTable tbody tr:hover {
+  background: rgba(233, 30, 99, 0.06);
+}
+
+/* columnas de acciones (Editar / Eliminar) más chicas */
+.servicesTable td:last-child,
+.servicesTable td:nth-last-child(2) {
+  white-space: nowrap;
+}
+
+/* links botones */
+.servicesTable a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  transition: transform 0.15s ease, background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* Editar */
+.servicesTable a[href*="edit"] {
+  color: var(--pink-dark);
+  background: rgba(233, 30, 99, 0.08);
+  border-color: rgba(233, 30, 99, 0.25);
+}
+.servicesTable a[href*="edit"]:hover {
+  transform: translateY(-1px);
+  background: rgba(233, 30, 99, 0.14);
+}
+
+/* Eliminar */
+.servicesTable a[href*="delete"] {
+  color: #9b1c1c;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+.servicesTable a[href*="delete"]:hover {
+  transform: translateY(-1px);
+  background: rgba(239, 68, 68, 0.16);
+}
+
+/* mensaje notice */
+.notice {
+  margin: 18px 0;
+  padding: 12px 14px;
+  background: rgba(233, 30, 99, 0.08);
+  border: 1px solid rgba(233, 30, 99, 0.22);
+  border-radius: 14px;
+  color: var(--text);
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 900px) {
+  .servicesTable,
+  .servicesTable thead,
+  .servicesTable tbody,
+  .servicesTable tr,
+  .servicesTable td {
+    display: block;
+    width: 100%;
+  }
+
+  .servicesTable thead {
+    display: none;
+  }
+
+  .servicesTable tr {
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+  }
+
+  .servicesTable td {
+    border-bottom: none;
+    padding: 10px 14px;
+  }
+}
+
 @media only screen and (min-width: 954px) {
   body {
     max-width: 1100px;

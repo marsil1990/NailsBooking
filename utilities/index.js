@@ -111,8 +111,6 @@ Util.buildServicesAdmin = async (data) => {
   return grid;
 };
 
-
-
 Util.buildSelectdates = async (dates) => {
   grid = "";
   if (dates.length === 0) {
@@ -137,6 +135,23 @@ Util.buildSelectdates = async (dates) => {
   return grid;
 };
 
+Util.buildSelectServices = async (dates) => {
+  select = "";
+  if (dates.length === 0) {
+    select = "<p> No hay servicios disponibles </p>";
+  } else {
+    select += "<option> Elige un servicio </option>";
+    dates.forEach((d) => {
+      select += `<option value ="${d.service_id}">`;
+      select += "<p> Nombre: " + d.service_name + "</p>";
+      select += "<p> Descripción: " + d.service_description + "</p>";
+      select += "<p> Precio: " + d.service_price + "</p>";
+      select += "</option>";
+    });
+    select += "</select>";
+  }
+  return select;
+};
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for
