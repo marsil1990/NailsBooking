@@ -15,7 +15,7 @@ async function appointments(req, res) {
 async function booking(req, res) {
   const { account_email, date } = req.body;
   const new_date = new Date(date);
-  console.log(new_date);
+  console.log(req.body, account_email);
   const insertBook = await reservationModel.insertBook(account_email, new_date);
   const dates = await utilitiesDate.availableDatesForBook();
   const grid = await utilities.buildSelectdates(dates);
@@ -63,8 +63,35 @@ async function getAvailableDates(req, res) {
     const dates = await utilitiesDate.availableDatesForBook();
     res.json({ ok: true, dates });
   } catch (error) {
-    console.error(err);
+    console.error(error);
     res.status(500).json({ ok: false, message: "DB error" });
+  }
+}
+
+async function getReservationsMadeByClients(req, res) {
+  try {
+    const dates = await reservationModel.getReservationsClient();
+    res.json({ ok: true, dates });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ ok: false, message: "DB error" });
+  }
+}
+
+async function disableHours(req, res) {
+  const { not_available_times } = req.body;
+  try {
+    not_available_times.forEach(async (h) => {
+      await reservationModel.insertDisableHours(new Date(h));
+    });
+    req.flash("notice", "Se han eliminados las horas correctamente");
+    res.redirect("/appointment/managementReservations");
+  } catch (error) {
+    req.flash(
+      "notice",
+      "No han eliminados las horas correctamente, intentelo de nuevo"
+    );
+    res.status(500).redirect("/appointment/managementReservations");
   }
 }
 module.exports = {
@@ -73,4 +100,6 @@ module.exports = {
   getManagementReservations,
   managemenReservations,
   getAvailableDates,
+  disableHours,
+  getReservationsMadeByClients,
 };

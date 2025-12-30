@@ -736,6 +736,210 @@ h1 {
   }
 }
 
+/*Managemetn Appointment*/
+/* =========================
+   Vacations / Not Available
+   ========================= */
+
+/* section container */
+.management-vacations.schedule-not-available {
+  max-width: 980px;
+  margin: 32px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* headings */
+.management-vacations.schedule-not-available h2 {
+  margin: 2rem 0 0;
+  color: #2b2b2b;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* forms layout */
+.management-vacations-form,
+.schedule-not-available-Form {
+  background: #fff0f6; /* soft pink */
+  border: 1px solid rgba(233, 30, 99, 0.12);
+  border-radius: 18px;
+  padding: 18px;
+  margin-top: 18px;
+  box-shadow: 0 10px 24px rgba(233, 30, 99, 0.08);
+}
+
+/* second form title */
+.schedule-not-available-Form h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+/* labels */
+.management-vacations-form label,
+.schedule-not-available-Form label {
+  display: block;
+  margin: 12px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3a3a3a;
+}
+
+/* inputs */
+.management-vacations-form input[type="date"],
+.schedule-not-available-Form input[type="date"] {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  outline: none;
+  background: #fff;
+  font-size: 15px;
+  color: #2b2b2b;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.management-vacations-form input[type="date"]:focus,
+.schedule-not-available-Form input[type="date"]:focus {
+  border-color: rgba(233, 30, 99, 0.55);
+  box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.14);
+}
+
+/* radio container */
+#radioElement {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px dashed rgba(233, 30, 99, 0.25);
+  max-height: 280px;
+  overflow: auto;
+}
+
+/* each radio line (your JS appends label + input) */
+#radioElement label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  border-radius: 12px;
+  background: #fff7fb;
+  border: 1px solid rgba(233, 30, 99, 0.12);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+#radioElement label:hover {
+  background: #ffe3f0;
+  border-color: rgba(233, 30, 99, 0.25);
+  transform: translateY(-1px);
+}
+
+/* radio itself */
+#radioElement input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #e91e63; /* modern browsers */
+  cursor: pointer;
+}
+
+/* buttons */
+.management-vacations-form button,
+.schedule-not-available-Form button {
+  margin-top: 16px;
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #e91e63, #c2185b);
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(233, 30, 99, 0.25);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.management-vacations-form button:hover,
+.schedule-not-available-Form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(233, 30, 99, 0.32);
+}
+
+.management-vacations-form button:active,
+.schedule-not-available-Form button:active {
+  transform: translateY(0);
+}
+
+.management-vacations-form button:disabled,
+.schedule-not-available-Form button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* nice separation between forms */
+.management-vacations-form {
+  position: relative;
+}
+
+.schedule-not-available-Form {
+  position: relative;
+}
+
+/* responsive */
+@media (min-width: 860px) {
+  .management-vacations-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 16px;
+  }
+
+  .management-vacations-form label[for="start-day"],
+  .management-vacations-form input#start-day,
+  .management-vacations-form label[for="end-day"],
+  .management-vacations-form input#end-day {
+    grid-column: span 1;
+  }
+
+  .management-vacations-form button {
+    grid-column: 1 / -1;
+  }
+
+  .schedule-not-available-Form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 16px;
+  }
+
+  .schedule-not-available-Form h2 {
+    grid-column: 1 / -1;
+  }
+
+  .schedule-not-available-Form label[for="not_available"],
+  .schedule-not-available-Form input#not-available {
+    grid-column: 1 / -1;
+    max-width: 420px;
+  }
+
+  .schedule-not-available-Form label[for="end-day"] {
+    grid-column: 1 / -1;
+  }
+
+  #radioElement {
+    grid-column: 1 / -1;
+  }
+
+  .schedule-not-available-Form button {
+    grid-column: 1 / -1;
+    max-width: 420px;
+  }
+}
+
 @media only screen and (min-width: 954px) {
   body {
     max-width: 1100px;

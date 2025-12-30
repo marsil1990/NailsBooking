@@ -6,6 +6,7 @@
     <% } %>
 
         <section class="management-vacations schedule-not-available">
+            <h2>Vacaciones</h2>
             <form class="management-vacations-form" action="/appointment/managementReservations" method="post">
 
 
@@ -19,22 +20,29 @@
 
             </form>
 
-
+            <h2>Eliminar horas específicas</h2>
             <form class="schedule-not-available-Form" action="/appointment/schedule-not-available" method="post">
 
 
-                <label for="not-available">Elige el día</label>
-                <input type="date" id="not-available" name="not-available">
+                <label for="not_available">Elige el día</label>
+                <input type="date" id="not_available" name="not_available">
 
                 <label for="end-day">Eliminar las siguientes horas de la agends</label>
                 <div id="radioElement">
-
+                    <!-- Radio elements here, a lot -->
                 </div>
-               
 
-                <button type="submit">Ingresa tus vacaciones</button>
+
+                <button type="submit">Elimina las horas seleccionadas</button>
             </form>
 
+        </section>
+
+        <section class="management-appointments">
+            <h2>Agenda</h2>
+            <div id="management-appointments">
+
+            </div>
         </section>
 
         <%- messages() %>
@@ -49,3 +57,4 @@
                 <% } %>
 
                     <script src="../../js/scheduleNotAvailableForm.js"></script>
+                    <script src="../../js/managementReservations.js"></script>

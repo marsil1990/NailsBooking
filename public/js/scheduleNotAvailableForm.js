@@ -1,11 +1,12 @@
-const inputNotAvailable = document.getElementById("not-available");
+const inputNotAvailable = document.getElementById("not_available");
 const div = document.getElementById("radioElement");
 
 inputNotAvailable.addEventListener("change", async () => {
+  div.innerHTML = "";
   console.log(inputNotAvailable.value);
   const selectDate = inputNotAvailable.value;
   const dates = await getAvailableDates();
-  crateRadioElement(dates, selectDate);
+  createCheckboxElements(dates, selectDate);
 });
 
 async function getAvailableDates() {
@@ -14,19 +15,32 @@ async function getAvailableDates() {
   return data.dates;
 }
 
-function crateRadioElement(dates, select) {
-  const s = new Date(select);
+function createCheckboxElements(dates, select) {
+  const selectedDay = new Date(select);
+
   dates.forEach((element) => {
-    const e = new Date(element);
+    const d = new Date(element);
+
     if (
-      e.getFullYear() === s.getFullYear() &&
-      e.getMonth() === s.getMonth() &&
-      e.getDay() === s.getDay()
+      d.getFullYear() === selectedDay.getFullYear() &&
+      d.getMonth() === selectedDay.getMonth() &&
+      d.getDate() === selectedDay.getDate() + 1
     ) {
-      const r = document.createElement("input");
-      const l = document.createElement("label");
-      l.setAttribute("for", "avilable");
-      const s = e.toLocaleString("es-UY", {
+      const id = `slot-${d.getTime()}`;
+
+      const label = document.createElement("label");
+      label.className = "slot";
+
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.id = id;
+
+      input.name = "not_available_times[]";
+
+      input.value = d.toISOString();
+
+      const text = document.createElement("span");
+      text.textContent = d.toLocaleString("es-UY", {
         weekday: "short",
         day: "2-digit",
         month: "2-digit",
@@ -35,13 +49,10 @@ function crateRadioElement(dates, select) {
         minute: "2-digit",
       });
 
-      r.setAttribute("type", "radio");
-      r.setAttribute("id", "available");
-      l.textContent = s;
-      div.appendChild(l);
-      div.appendChild(r);
+      label.htmlFor = id;
+      label.appendChild(input);
+      label.appendChild(text);
+      div.appendChild(label);
     }
   });
 }
-
-

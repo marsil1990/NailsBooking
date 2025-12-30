@@ -31,4 +31,13 @@ router.get(
   utilities.handleErrors(appointmentsController.getAvailableDates)
 );
 
+router.post(
+  "/schedule-not-available",
+  utilities.handleErrors(appointmentsController.disableHours)
+);
+
+router.get(
+  "/reservations",
+  utilities.handleErrors(appointmentsController.getReservationsMadeByClients)
+);
 module.exports = router;

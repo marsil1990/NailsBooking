@@ -3,9 +3,16 @@ const reservationModel = require("../models/reservation-model");
 async function availableDatesForBook() {
   const dates = await reservationModel.getReservationsDates();
   const vacation = await reservationModel.getAllVacations();
+  const disablehours = await reservationModel.getAlldisablehours();
+  const setDisablehours = new Set();
+  disablehours.forEach((element) => {
+    setDisablehours.add(element.time_disabled.getTime());
+  });
+
   const availableDates = [];
 
   let date = new Date();
+  console.log(date);
   date.setMilliseconds(0);
   date.setSeconds(0);
   date.setMinutes(0);
@@ -39,7 +46,10 @@ async function availableDatesForBook() {
           break;
         }
       }
-      if (avaiable) availableDates.push(new Date(date.getTime()));
+
+      if (avaiable && !setDisablehours.has(date.getTime())) {
+        availableDates.push(new Date(date));
+      }
     }
 
     date.setMinutes(date.getMinutes() + 30);

@@ -39,3 +39,7 @@ CREATE TABLE IF NOT EXISTS public.vacation(
     dateStart TIMESTAMP NOT NULL,
     dateEnd TIMESTAMP NOT NULL,
 );
+CREATE TABLE IF NOT EXISTS public.disableHours (
+    disableHours_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    time_disabled TIMESTAMP NOT NULL
+);
