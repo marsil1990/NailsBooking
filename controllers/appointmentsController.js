@@ -64,7 +64,7 @@ async function managemenReservations(req, res) {
 async function getAvailableDates(req, res) {
   try {
     const dates = await utilitiesDate.availableDatesForBook();
-    res.json({ ok: true, dates });
+    res.json({ ok: true, dates:dates.map((d)=>d.getTime())  }); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ ok: false, message: "DB error" });
