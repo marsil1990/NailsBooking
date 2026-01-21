@@ -8,8 +8,8 @@ validate.newServiceRules = () => {
       .notEmpty()
       .withMessage("Provide a name.")
       .bail()
-      .matches(/^[A-Za-z0-9][A-Za-z0-9 \-]{2,}$/)
-      .withMessage("Min 3 chars. Letters, numbers, spaces, and - only."),
+      .isLength({ min: 3 })
+      .withMessage("Min 3 chars"),
 
     body("service_description")
       .trim()
@@ -26,7 +26,7 @@ validate.newServiceRules = () => {
       .bail()
       .matches(/^\d+(?:\.\d{1,2})?$/)
       .withMessage(
-        "Use an integer or a decimal with up to 2 decimals (e.g., 12000 or 12000.99)."
+        "Use an integer or a decimal with up to 2 decimals (e.g., 12000 or 12000.99).",
       ),
   ];
 };

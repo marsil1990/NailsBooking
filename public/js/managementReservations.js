@@ -25,10 +25,11 @@ async function buildReservationsAdmin(data) {
     grid += "</thead>";
     grid += "<tbody>";
     data.forEach((element) => {
-      const appointment = new Date(element.appointment_datatime); // o appointment_datatime si así viene
+      console.log(element.appointment_datetime);
+      const appointment = new Date(element.appointment_datetime);
+      appointment.setHours(appointment.getHours() + 3);
       const created = new Date(element.created_at);
-
-      const dateElementappointment = appointment.toLocaleString("es-UY", {
+      const dateElementappointment = appointment.toLocaleString({
         weekday: "short",
         day: "2-digit",
         month: "2-digit",
@@ -75,11 +76,7 @@ async function buildReservationsAdmin(data) {
         element.account_id +
         ">Editar</a></td>";
       grid +=
-        "<td> <a href= delete/" +
-        element.reservation_id +
-        "/" +
-        element.account_id +
-        ">Eliminar</a></td>";
+        "<td> <a href= delete/" + element.reservation_id + ">Eliminar</a></td>";
       grid += "</tr>";
     });
     grid += "</tbody>";

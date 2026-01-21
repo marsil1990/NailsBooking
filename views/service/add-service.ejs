@@ -11,10 +11,9 @@
                     enctype="multipart/form-data">
 
                     <label for="service_name">Nombre</label>
-                    <input id="service_name" name="service_name" required minlength="3"
-                        pattern="^[A-Za-z0-9][A-Za-z0-9 \-]{2,}$"
-                        title="Mínimo 3 caracteres. Solo letras, números, espacios y guiones."
-                        value="<%= locals.service_name || '' %>" placeholder="Min of 3 Characters">
+                    <input id="service_name" name="service_name" required minlength="3" pattern="^.{3,}$$"
+                        title="Mínimo 3 caracteres." value="<%= locals.service_name || '' %>"
+                        placeholder="Min of 3 Characters">
 
                     <label for="service_description">Description</label>
                     <textarea id="service_description" name="service_description" required minlength="10"

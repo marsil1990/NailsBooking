@@ -5,18 +5,18 @@ async function insertServiceToreservation(reservation_id, service_id) {
   try {
     const exist = await pool.query(
       "SELECT * FROM public.reservations_services WHERE reservation_id = $1",
-      [reservation_id]
+      [reservation_id],
     );
     let result;
     if (exist.rowCount !== 1) {
       result = await pool.query(
         "INSERT INTO public.reservations_services (reservation_id, service_id) VALUES ($1, $2) RETURNING*",
-        [parseInt(reservation_id), parseInt(service_id)]
+        [parseInt(reservation_id), parseInt(service_id)],
       );
     } else {
       result = await pool.query(
         "UPDATE public.reservations_services SET service_id = $1 WHERE reservation_id = $2 RETURNING*",
-        [service_id, reservation_id]
+        [service_id, reservation_id],
       );
     }
     return result.rowCount;
@@ -26,6 +26,20 @@ async function insertServiceToreservation(reservation_id, service_id) {
   }
 }
 
+async function getserviceByregistration(reservation_id) {
+  try {
+    const result = await pool.query(
+      "SELECT s.service_name FROM services s INNER JOIN reservations_services rs ON rs.service_id = s.service_id WHERE rs.reservation_id = $1",
+      [reservation_id],
+    );
+    return result.rows[0];
+  } catch (error) {
+    console.error("DB error: ", error.message);
+    throw error;
+  }
+}
+
 module.exports = {
   insertServiceToreservation,
+  getserviceByregistration,
 };

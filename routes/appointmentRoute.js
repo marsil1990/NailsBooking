@@ -7,53 +7,71 @@ const appointmentsController = require("../controllers/appointmentsController");
 router.get(
   "/",
   utilities.authorize,
-  utilities.handleErrors(appointmentsController.appointments)
+  utilities.handleErrors(appointmentsController.appointments),
 );
 
 router.post(
   "/book",
   utilities.authorize,
-  utilities.handleErrors(appointmentsController.booking)
+  utilities.handleErrors(appointmentsController.booking),
 );
 
 router.get(
   "/managementReservations",
   utilities.authorizeAdmin,
-  utilities.handleErrors(appointmentsController.getManagementReservations)
+  utilities.handleErrors(appointmentsController.getManagementReservations),
+);
+
+router.get(
+  "/managementVacations",
+  utilities.authorizeAdmin,
+  utilities.handleErrors(appointmentsController.getManagementVacations),
 );
 
 router.post(
-  "/managementReservations",
+  "/managementVacations",
   utilities.authorizeAdmin,
-  utilities.handleErrors(appointmentsController.managemenReservations)
+  utilities.handleErrors(appointmentsController.managemenVacations),
 );
 
 router.get(
   "/avaiable-dates",
-  utilities.handleErrors(appointmentsController.getAvailableDates)
+  utilities.handleErrors(appointmentsController.getAvailableDates),
 );
 
 router.post(
   "/schedule-not-available",
   utilities.authorizeAdmin,
-  utilities.handleErrors(appointmentsController.disableHours)
+  utilities.handleErrors(appointmentsController.disableHours),
 );
 
 router.get(
   "/reservations",
   utilities.authorizeAdmin,
-  utilities.handleErrors(appointmentsController.getReservationsMadeByClients)
+  utilities.handleErrors(appointmentsController.getReservationsMadeByClients),
 );
 
 router.get(
   "/edit/:reservation_id/:account_id",
   utilities.authorizeAdmin,
-  utilities.handleErrors(appointmentsController.getToEeditReservations)
+  utilities.handleErrors(appointmentsController.getToEeditReservations),
 );
 
 router.post(
   "/edit",
   utilities.authorizeAdmin,
-  utilities.handleErrors(appointmentsController.editReservations)
+  utilities.handleErrors(appointmentsController.editReservations),
+);
+
+router.get(
+  "/delete/:reservation_id",
+  utilities.authorizeAdmin,
+  utilities.handleErrors(appointmentsController.getTodelete),
+);
+
+router.post(
+  "/delete",
+  utilities.authorizeAdmin,
+  utilities.handleErrors(appointmentsController.deleteReservation),
 );
 module.exports = router;

@@ -267,7 +267,9 @@ footer {
   align-items: center;
   justify-content: center;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
 }
 
 .social-icons a:hover {
@@ -486,7 +488,9 @@ input:required:valid {
   background: #fff;
   color: var(--text);
   outline: none;
-  transition: border-color 150ms ease, box-shadow 150ms ease;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
 }
 
 /* Textarea */
@@ -574,7 +578,10 @@ input:required:valid {
   color: #fff;
   background: linear-gradient(135deg, var(--pink-main), var(--pink-dark));
   box-shadow: 0 12px 30px rgba(233, 30, 99, 0.25);
-  transition: transform 150ms ease, filter 150ms ease, opacity 150ms ease;
+  transition:
+    transform 150ms ease,
+    filter 150ms ease,
+    opacity 150ms ease;
 }
 
 .add-service-form button:hover,
@@ -660,7 +667,10 @@ h1 {
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   background: #fff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.05s ease;
   margin-top: 2px;
 }
 
@@ -679,10 +689,15 @@ h1 {
 /* Select improvements */
 .booking-form select {
   appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, #e91e63 50%),
+  background-image:
+    linear-gradient(45deg, transparent 50%, #e91e63 50%),
     linear-gradient(135deg, #e91e63 50%, transparent 50%);
-  background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
-  background-size: 6px 6px, 6px 6px;
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%;
+  background-size:
+    6px 6px,
+    6px 6px;
   background-repeat: no-repeat;
   padding-right: 40px;
   cursor: pointer;
@@ -714,7 +729,10 @@ h1 {
   font-size: 15px;
   cursor: pointer;
   box-shadow: 0 10px 22px rgba(233, 30, 99, 0.28);
-  transition: transform 0.12s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
 }
 
 .booking-form button[type="submit"]:hover {
@@ -797,7 +815,9 @@ h1 {
   background: #fff;
   font-size: 15px;
   color: #2b2b2b;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .management-vacations-form input[type="date"]:focus,
@@ -829,7 +849,9 @@ h1 {
   background: #fff7fb;
   border: 1px solid rgba(233, 30, 99, 0.12);
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease,
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
     border-color 0.15s ease;
 }
 
@@ -861,7 +883,10 @@ h1 {
   background: linear-gradient(135deg, #e91e63, #c2185b);
   cursor: pointer;
   box-shadow: 0 10px 22px rgba(233, 30, 99, 0.25);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
 }
 
 .management-vacations-form button:hover,
@@ -976,7 +1001,9 @@ h1 {
   background: #fff;
   color: var(--text);
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 /* disabled inputs: prolijos y legibles */
@@ -989,10 +1016,15 @@ h1 {
 
 .edit-reservation-form select {
   appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
     linear-gradient(135deg, var(--muted) 50%, transparent 50%);
-  background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
-  background-size: 6px 6px, 6px 6px;
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%;
+  background-size:
+    6px 6px,
+    6px 6px;
   background-repeat: no-repeat;
 }
 
@@ -1013,7 +1045,10 @@ h1 {
   color: #fff;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
   box-shadow: 0 10px 26px rgba(233, 30, 99, 0.25);
 }
 
@@ -1085,7 +1120,9 @@ h1 {
   text-decoration: none;
   font-weight: 700;
   border: 1px solid var(--border);
-  transition: transform 0.15s ease, background 0.15s ease,
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
     border-color 0.15s ease;
 }
 
@@ -1147,6 +1184,101 @@ h1 {
     border-bottom: none;
     padding: 10px 14px;
   }
+}
+
+/*SELECT*/
+.selectDate {
+  overflow-y: auto;
+}
+
+/*DELETE RESERVATION*/
+
+.delete-reservation-form-container {
+  max-width: 980px;
+  margin: 28px auto;
+  padding: 0 16px;
+}
+
+.delete-reservation-form {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  display: grid;
+  gap: 12px;
+}
+
+.delete-reservation-form label {
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 15px;
+}
+
+.delete-reservation-form input {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  margin-top: -5px;
+}
+
+/* disabled inputs: prolijos y legibles */
+.delete-reservation-form input:disabled {
+  background: #f7f7f8;
+  color: #555;
+  cursor: not-allowed;
+  opacity: 1; /* para que no se vea “lavado” */
+}
+
+.delete-reservation-form select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 50%,
+    calc(100% - 12px) 50%;
+  background-size:
+    6px 6px,
+    6px 6px;
+  background-repeat: no-repeat;
+}
+
+.delete-reservation-form input:focus,
+.delete-reservation-form select:focus {
+  border-color: rgba(233, 30, 99, 0.5);
+  box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.12);
+}
+
+/* botón */
+.delete-reservation-form button {
+  margin-top: 8px;
+  width: fit-content;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 14px;
+  background: var(--pink-main);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s ease;
+  box-shadow: 0 10px 26px rgba(233, 30, 99, 0.25);
+}
+
+.delete-reservation-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(233, 30, 99, 0.32);
+}
+
+.delete-reservation-form button:active {
+  transform: translateY(0);
+  opacity: 0.9;
 }
 
 @media only screen and (min-width: 954px) {

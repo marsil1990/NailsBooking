@@ -28,9 +28,8 @@ validate.registrationRules = () => {
       .normalizeEmail({ gmail_remove_dots: false }) // refer to validator.js docs
       .withMessage("A valid email is required.")
       .custom(async (account_email) => {
-        const emailExists = await accountModel.checkExistingEmail(
-          account_email
-        );
+        const emailExists =
+          await accountModel.checkExistingEmail(account_email);
         if (emailExists) {
           throw new Error("Email exists. Please log in or use different email");
         }
@@ -96,7 +95,7 @@ validate.updateRules = () => {
       .custom(async (account_email, { req }) => {
         const emailExists = await accountModel.checpdatekExistingEmail(
           parseInt(req.body.account_id),
-          account_email
+          account_email,
         );
         if (emailExists) {
           throw new Error("Email exists.");
@@ -115,9 +114,8 @@ validate.loginRules = () => {
       .bail()
       .normalizeEmail({ gmail_remove_dots: false }) // refer to validator.js docs
       .custom(async (account_email) => {
-        const emailExists = await accountModel.checkExistingEmail(
-          account_email
-        );
+        const emailExists =
+          await accountModel.checkExistingEmail(account_email);
         if (!emailExists) {
           throw new Error("Email not exists.");
         }
@@ -143,7 +141,6 @@ validate.checkRegData = async (req, res, next) => {
 };
 
 validate.checkLogin = async (req, res, next) => {
-  const { account_email } = req.body;
   let errors = [];
   errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -185,7 +182,7 @@ validate.checkPasswordUpdateData = async (req, res, next) => {
   if (!errors.isEmpty()) {
     req.flash(
       "notice",
-      "La contraseña no cumple con los requisitos, por lo tanto la misma no ha cambiado"
+      "La contraseña no cumple con los requisitos, por lo tanto la misma no ha cambiado",
     );
     res.redirect("/account");
     return;

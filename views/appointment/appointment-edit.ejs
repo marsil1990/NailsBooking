@@ -19,14 +19,22 @@
                 <input type="email" id="email" name="account_email" required value="<%= locals.account_email %>"
                     placeholder="Enter a valid email address" disabled>
 
-                <input type="number" name="reservation_id" value="<%= locals.reservation_id %>" hidden>
+                <p>Fecha acltual: <%= locals.dateString %>
+                </p>
+                <label for="date">Fechas y horarios diponibles</label>
+                <%- grid %>
 
-                <select name="serviceReservations" id="serviceReservations">
-                    <%- selectList %>
-                </select>
+
+                    <input type="number" name="reservation_id" value="<%= locals.reservation_id %>" hidden>
+
+                    <p>Servicio actual: <%= locals.currentService %>
+                    </p>
+                    <select name="serviceReservations" id="serviceReservations">
+                        <%- selectList %>
+                    </select>
 
 
-                <button type="submit">Editar </button>
+                    <button type="submit">Editar </button>
             </form>
         </section>
 

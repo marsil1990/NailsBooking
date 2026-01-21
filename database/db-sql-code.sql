@@ -43,3 +43,12 @@ CREATE TABLE IF NOT EXISTS public.disableHours (
     disableHours_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     time_disabled TIMESTAMP NOT NULL
 );
+-- 1) Arreglar el nombre (fecha + hora incluida)
+ALTER TABLE public.reservations
+    RENAME COLUMN appointment_datatime TO appointment_datetime;
+-- 2) Guardar created_at con hora de Uruguay (America/Montevideo)
+ALTER TABLE public.reservations
+ALTER COLUMN created_at
+SET DEFAULT (now() AT TIME ZONE 'America/Montevideo');
+UPDATE public.reservations
+SET created_at = (created_at AT TIME ZONE 'UTC') AT TIME ZONE 'America/Montevideo';

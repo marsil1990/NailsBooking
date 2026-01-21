@@ -116,8 +116,8 @@ Util.buildSelectdates = async (dates) => {
   if (dates.length === 0) {
     grid = "<p> No hay horarios disponibles </p>";
   } else {
-    grid = '<select name="date" id="date">';
-    grid += "<option> Loading ... </option>";
+    grid = '<select class="selectDate" name="date" id="date" >';
+    grid += "<option> Horarios disponibles ↓ </option>";
     dates.forEach((d) => {
       grid += `<option value ="${d}">`;
       grid += d.toLocaleString("es-UY", {
@@ -184,7 +184,7 @@ Util.checkJWTToken = (req, res, next) => {
         res.locals.type = accountData.account_type;
         res.locals.account_id = accountData.account_id;
         next();
-      }
+      },
     );
   } else {
     next();
