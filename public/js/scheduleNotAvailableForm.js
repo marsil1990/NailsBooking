@@ -16,7 +16,7 @@ async function getAvailableDates() {
 }
 
 function createCheckboxElements(dates, select) {
-  const selectedDay = new Date(select);
+  const selectedDay = new Date(select + "T00:00:00");
 
   dates.forEach((element) => {
     const d = new Date(element);
@@ -24,7 +24,7 @@ function createCheckboxElements(dates, select) {
     if (
       d.getFullYear() === selectedDay.getFullYear() &&
       d.getMonth() === selectedDay.getMonth() &&
-      d.getDate() === selectedDay.getDate() + 1
+      d.getDate() === selectedDay.getDate() 
     ) {
       const id = `slot-${d.getTime()}`;
 
