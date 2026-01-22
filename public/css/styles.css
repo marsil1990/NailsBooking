@@ -1281,6 +1281,20 @@ h1 {
   opacity: 0.9;
 }
 
+/*management reservations filters*/
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.filters input {
+  height: 40px;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+
 @media only screen and (min-width: 954px) {
   body {
     max-width: 1100px;

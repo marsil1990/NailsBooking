@@ -1,13 +1,14 @@
 const inputNotAvailable = document.getElementById("not_available");
 const div = document.getElementById("radioElement");
 
-inputNotAvailable.addEventListener("change", async () => {
-  div.innerHTML = "";
-  console.log(inputNotAvailable.value);
-  const selectDate = inputNotAvailable.value;
-  const dates = await getAvailableDates();
-  createCheckboxElements(dates, selectDate);
-});
+if (inputNotAvailable) {
+  inputNotAvailable.addEventListener("change", async () => {
+    div.innerHTML = "";
+    const selectDate = inputNotAvailable.value;
+    const dates = await getAvailableDates();
+    createCheckboxElements(dates, selectDate);
+  });
+}
 
 async function getAvailableDates() {
   const res = await fetch("/appointment/avaiable-dates");
@@ -24,7 +25,7 @@ function createCheckboxElements(dates, select) {
     if (
       d.getFullYear() === selectedDay.getFullYear() &&
       d.getMonth() === selectedDay.getMonth() &&
-      d.getDate() === selectedDay.getDate() 
+      d.getDate() === selectedDay.getDate()
     ) {
       const id = `slot-${d.getTime()}`;
 

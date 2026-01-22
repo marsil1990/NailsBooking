@@ -1,10 +1,39 @@
 const divReserv = document.getElementById("management-appointments");
+const filterByemail = document.getElementById("filterByemail");
+const filterBydate = document.getElementById("filterBydate");
 
 async function getData() {
   const res = await fetch("/appointment/reservations");
   const data = await res.json();
-  console.log(data.dates);
   buildReservationsAdmin(data.dates);
+  if (filterByemail) {
+    filterByemail.addEventListener("input", async () => {
+      const filtering = filterByemail.value.trim().toLowerCase();
+      const result = data.dates.filter((e) =>
+        e.account_email.toLowerCase().includes(filtering),
+      );
+      buildReservationsAdmin(result);
+    });
+  }
+  if (filterBydate) {
+    filterBydate.addEventListener("input", () => {
+      const filtering = filterBydate.value;
+      const fulldate = new Date(filtering);
+      const result = data.dates.filter((e) => {
+        const d = new Date(e.appointment_datetime);
+        return (
+          fulldate.getUTCFullYear() === d.getUTCFullYear() &&
+          fulldate.getUTCMonth() === d.getUTCMonth() &&
+          fulldate.getUTCDay() === d.getUTCDay()
+        );
+      });
+      if (result.length !== 0) {
+        buildReservationsAdmin(result);
+      } else {
+        buildReservationsAdmin(data.dates);
+      }
+    });
+  }
 }
 
 async function buildReservationsAdmin(data) {
@@ -25,7 +54,6 @@ async function buildReservationsAdmin(data) {
     grid += "</thead>";
     grid += "<tbody>";
     data.forEach((element) => {
-      console.log(element.appointment_datetime);
       const appointment = new Date(element.appointment_datetime);
       appointment.setHours(appointment.getHours() + 3);
       const created = new Date(element.created_at);
@@ -84,7 +112,7 @@ async function buildReservationsAdmin(data) {
   } else {
     grid += '<p class="notice"> No hay servicios disponibles </P>';
   }
-
-  divReserv.innerHTML = grid;
+  if (divReserv) divReserv.innerHTML = grid;
 }
+
 getData();
