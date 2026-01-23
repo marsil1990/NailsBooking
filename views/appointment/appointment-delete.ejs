@@ -26,6 +26,7 @@
                 <label for="service_name">Nombre del servicio</label>
                 <input type="text" name="service_name" id="service_name" value="<%= locals.service_name %>" disabled>
 
+
                 <label for="service_description">Descripción del servicio</label>
                 <input type="text" name="service_descriptione" id="service_description"
                     value="<%= locals.service_description %>" disabled>
@@ -42,7 +43,12 @@
 
                 <input type="number" name="reservation_id" value="<%= locals.reservation_id %>" hidden>
 
-                <button type="submit">Confirmar </button>
+                <% if( (locals.type==="Client" && locals.service_name===null ) || locals.type==="Admin" ){ %>
+                    <button type="submit">Confirmar </button>
+                    <% } else { %>
+                        <p>Solo se puede eliminar si el servivicio y el precio no han sido ingresados
+                        </p>
+                        <% } %>
             </form>
         </section>
 

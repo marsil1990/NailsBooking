@@ -84,7 +84,6 @@ async function getReservationsClient() {
     const query =
       "SELECT r.reservation_id, r.account_id, r.appointment_datetime, r.created_at, a.account_firstname, a.account_lastname, a.account_email,s.service_id, s.service_name, s.service_description, s.service_price FROM public.services s INNER JOIN public.reservations_services rs ON rs.service_id = s.service_id RIGHT JOIN public.reservations r ON rs.reservation_id = r.reservation_id INNER JOIN  public.account a ON r.account_id = a.account_id ORDER BY r.appointment_datetime ";
     const result = await pool.query(query);
-
     return result.rows;
   } catch (error) {
     console.error("DB error :", error.message);
@@ -138,7 +137,7 @@ async function getReservationsDatesCurrentDate(date) {
 async function getDateForDeleteReservation(r_id) {
   try {
     const query =
-      "SELECT a.account_firstname, a.account_lastname, a.account_email, r.appointment_datetime, s.service_name, s.service_description, s.service_price, r.created_at FROM public.reservations r INNER JOIN public.account a ON r.account_id=a.account_id INNER JOIN public.reservations_services rs ON r.reservation_id = rs.reservation_id INNER JOIN public.services s ON rs.service_id = s.service_id WHERE r.reservation_id = $1";
+      "SELECT a.account_firstname, a.account_lastname, a.account_email, r.appointment_datetime, s.service_name, s.service_description, s.service_price, r.created_at FROM public.services s INNER JOIN public.reservations_services rs ON rs.service_id = s.service_id RIGHT JOIN public.reservations r ON rs.reservation_id = r.reservation_id INNER JOIN  public.account a ON r.account_id = a.account_id WHERE r.reservation_id =$1;";
     const result = await pool.query(query, [r_id]);
     return result.rows[0];
   } catch (error) {
@@ -160,6 +159,18 @@ async function deleteReservationByid(r_id) {
   }
 }
 
+async function getMyOwnReservations(account_id) {
+  try {
+    const query =
+      "SELECT r.reservation_id, r.account_id, r.appointment_datetime, r.created_at, a.account_firstname, a.account_lastname, a.account_email,s.service_id, s.service_name, s.service_description, s.service_price FROM public.services s INNER JOIN public.reservations_services rs ON rs.service_id = s.service_id RIGHT JOIN public.reservations r ON rs.reservation_id = r.reservation_id INNER JOIN  public.account a ON r.account_id = a.account_id WHERE a.account_id = $1 ORDER BY r.appointment_datetime ";
+    const result = await pool.query(query, [account_id]);
+    return result.rows;
+  } catch (error) {
+    console.error("DB error :", error.message);
+    throw error;
+  }
+}
+
 module.exports = {
   getReservationsDates,
   insertBook,
@@ -173,4 +184,5 @@ module.exports = {
   getReservationsDatesCurrentDate,
   getDateForDeleteReservation,
   deleteReservationByid,
+  getMyOwnReservations,
 };

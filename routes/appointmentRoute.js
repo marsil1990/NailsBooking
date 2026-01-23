@@ -53,25 +53,38 @@ router.get(
 
 router.get(
   "/edit/:reservation_id/:account_id",
-  utilities.authorizeAdmin,
+  utilities.authorize,
   utilities.handleErrors(appointmentsController.getToEeditReservations),
 );
 
 router.post(
   "/edit",
-  utilities.authorizeAdmin,
+  utilities.authorize,
   utilities.handleErrors(appointmentsController.editReservations),
 );
 
 router.get(
   "/delete/:reservation_id",
-  utilities.authorizeAdmin,
+  utilities.authorize,
   utilities.handleErrors(appointmentsController.getTodelete),
 );
 
 router.post(
   "/delete",
-  utilities.authorizeAdmin,
+  utilities.authorize,
   utilities.handleErrors(appointmentsController.deleteReservation),
 );
+
+router.get(
+  "/myOwnAppointment/:account_id",
+  utilities.authorize,
+  utilities.handleErrors(appointmentsController.getReservationsClient),
+);
+
+router.get(
+  "/myOwnAppointment",
+  utilities.authorize,
+  utilities.handleErrors(appointmentsController.getMyreservations),
+);
+
 module.exports = router;

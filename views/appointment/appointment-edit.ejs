@@ -27,14 +27,20 @@
 
                     <input type="number" name="reservation_id" value="<%= locals.reservation_id %>" hidden>
 
-                    <p>Servicio actual: <%= locals.currentService %>
-                    </p>
-                    <select name="serviceReservations" id="serviceReservations">
-                        <%- selectList %>
-                    </select>
+                    <% if(locals.type==="Admin" ){ %>
 
-
-                    <button type="submit">Editar </button>
+                        <p>Servicio actual: <%= locals.currentService %>
+                        </p>
+                        <select name="serviceReservations" id="serviceReservations">
+                            <%- selectList %>
+                        </select>
+                        <% } %>
+                            <% if((locals.type==="Client" && locals.currentService===undefined ) ||
+                                locals.type==="Admin" ) {%>
+                                <button type="submit">Editar </button>
+                                <% }else{ %>
+                                    <p>El servicio y el precio ya han sido ingresado, no se puede editar</p>
+                                    <%}%>
             </form>
         </section>
 

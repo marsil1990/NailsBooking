@@ -4,6 +4,7 @@ const reservationModel = require("../models/reservation-model");
 const serviceModel = require("../models/service-model");
 const accountModel = require("../models/account-model");
 const reservationServiceModel = require("../models/reservation-service-model");
+const { route } = require("../routes/static");
 
 async function appointments(req, res) {
   const dates = await utilitiesDate.availableDatesForBook();
@@ -72,7 +73,7 @@ async function getManagementVacations(req, res) {
 async function managemenVacations(req, res) {
   const start = new Date(req.body.startDay);
   const end = new Date(req.body.endDay);
-  console.log(start, end);
+
   const insertVacation = await reservationModel.insertVacation(start, end);
   if (insertVacation === 1) {
     req.flash("notice", "Las vacaciones se han agendado correctamente");
@@ -89,7 +90,7 @@ async function managemenVacations(req, res) {
 async function getAvailableDates(req, res) {
   try {
     const dates = await utilitiesDate.availableDatesForBook();
-    res.json({ ok: true, dates:dates.map((d)=>d.getTime())  }); 
+    res.json({ ok: true, dates: dates.map((d) => d.getTime()) });
   } catch (error) {
     console.error(error);
     res.status(500).json({ ok: false, message: "DB error" });
@@ -124,8 +125,6 @@ async function disableHours(req, res) {
 }
 
 async function getToEeditReservations(req, res) {
-  console.log("Parametros: ", req.params);
-
   let currentService = await reservationServiceModel.getserviceByregistration(
     req.params.reservation_id,
   );
@@ -152,6 +151,7 @@ async function getToEeditReservations(req, res) {
   // const dates = await utilitiesDate.availableDatesForBook();
   const dates = await utilitiesDate.availableDatesForEdit(uruDate);
   const grid = await utilities.buildSelectdates(dates);
+  console.log("Servicio", currentService.service_name);
   res.render("appointment/appointment-edit", {
     title: "Editar",
     selectList,
@@ -253,7 +253,6 @@ async function getTodelete(req, res) {
 
 async function deleteReservation(req, res) {
   const { reservation_id } = req.body;
-  console.log(req.body);
   const deleteResult =
     await reservationModel.deleteReservationByid(reservation_id);
   if (deleteResult === 1) {
@@ -262,6 +261,25 @@ async function deleteReservation(req, res) {
   } else {
     req.flash("notice", "¨Se produjo un errror al eliminar!");
     res.redirect("/appointment/managementReservations");
+  }
+}
+
+async function getReservationsClient(req, res) {
+  res.render("appointment/appointment-client-management", {
+    errors: null,
+    title: "Mis reservas",
+  });
+}
+
+async function getMyreservations(req, res) {
+  try {
+    const dates = await reservationModel.getMyOwnReservations(
+      res.locals.account_id,
+    );
+    res.json({ ok: true, dates });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ ok: false, message: "DB error" });
   }
 }
 
@@ -279,4 +297,6 @@ module.exports = {
   managemenVacations,
   getTodelete,
   deleteReservation,
+  getReservationsClient,
+  getMyreservations,
 };

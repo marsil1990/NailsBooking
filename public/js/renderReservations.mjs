@@ -1,42 +1,5 @@
-const divReserv = document.getElementById("management-appointments");
-const filterByemail = document.getElementById("filterByemail");
-const filterBydate = document.getElementById("filterBydate");
-
-async function getData() {
-  const res = await fetch("/appointment/reservations");
-  const data = await res.json();
-  buildReservationsAdmin(data.dates);
-  if (filterByemail) {
-    filterByemail.addEventListener("input", async () => {
-      const filtering = filterByemail.value.trim().toLowerCase();
-      const result = data.dates.filter((e) =>
-        e.account_email.toLowerCase().includes(filtering),
-      );
-      buildReservationsAdmin(result);
-    });
-  }
-  if (filterBydate) {
-    filterBydate.addEventListener("input", () => {
-      const filtering = filterBydate.value;
-      const fulldate = new Date(filtering);
-      const result = data.dates.filter((e) => {
-        const d = new Date(e.appointment_datetime);
-        return (
-          fulldate.getUTCFullYear() === d.getUTCFullYear() &&
-          fulldate.getUTCMonth() === d.getUTCMonth() &&
-          fulldate.getUTCDay() === d.getUTCDay()
-        );
-      });
-      if (result.length !== 0) {
-        buildReservationsAdmin(result);
-      } else {
-        buildReservationsAdmin(data.dates);
-      }
-    });
-  }
-}
-
-async function buildReservationsAdmin(data) {
+const divReserv = document.querySelector(".management-appointments-table");
+export async function renderReservations(data) {
   let grid = "";
   if (data.length > 0) {
     grid = '<table class="servicesTable">';
@@ -82,29 +45,31 @@ async function buildReservationsAdmin(data) {
       if (element.service_name !== null) {
         grid += "<td>" + element.service_name + "</td>";
       } else {
-        grid += "<td> Edita para agregar el servicio </td>";
+        grid += "<td> Una vez realizado el servicio, se agrega el mismo </td>";
       }
 
       if (element.service_description !== null) {
         grid += "<td>" + element.service_description + "</td>";
       } else {
-        grid += "<td> Edita para agregar la descripción </td>";
+        grid += "<td> Una vez realizado el servicio, se agrega el mismo </td>";
       }
 
       if (element.service_price !== null) {
         grid += "<td>" + element.service_price + "</td>";
       } else {
-        grid += "<td> Edita para agregar precio </td>";
+        grid += "<td> Una vez realizado el servicio, se agrega el mismo </td>";
       }
       grid += "<td> " + created_at + "</td>";
       grid +=
-        "<td> <a href= edit/" +
+        "<td> <a href= /appointment/edit/" +
         element.reservation_id +
         "/" +
         element.account_id +
         ">Editar</a></td>";
       grid +=
-        "<td> <a href= delete/" + element.reservation_id + ">Eliminar</a></td>";
+        "<td> <a href= /appointment/delete/" +
+        element.reservation_id +
+        ">Eliminar</a></td>";
       grid += "</tr>";
     });
     grid += "</tbody>";
@@ -114,5 +79,3 @@ async function buildReservationsAdmin(data) {
   }
   if (divReserv) divReserv.innerHTML = grid;
 }
-
-getData();
