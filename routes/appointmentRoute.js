@@ -87,4 +87,16 @@ router.get(
   utilities.handleErrors(appointmentsController.getMyreservations),
 );
 
+router.get(
+  "/deletevacation/:vacation_id",
+  utilities.authorizeAdmin,
+  utilities.handleErrors(appointmentsController.deleteVacations),
+);
+
+router.get(
+  "/deletedisabledhours/:disabledhours_id",
+  utilities.authorizeAdmin,
+  utilities.handleErrors(appointmentsController.deleteDisabledHours),
+);
+
 module.exports = router;

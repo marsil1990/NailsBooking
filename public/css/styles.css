@@ -961,7 +961,7 @@ h1 {
 
   .schedule-not-available-Form button {
     grid-column: 1 / -1;
-    max-width: 420px;
+    /* max-width: 420px; */
   }
 }
 
@@ -1159,6 +1159,195 @@ h1 {
 }
 
 /* =========================
+   TABLA VACACIONES
+   ========================= */
+
+.h3-vacations {
+  margin: 1rem 0.5rem 0.5rem 0.5rem;
+}
+table.vacations {
+  width: 100%;
+  border-collapse: separate; /* permite bordes redondeados */
+  border-spacing: 0;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.06);
+}
+
+/* Header */
+table.vacations thead th {
+  text-align: left;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #111827;
+  background: #f9fafb;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Celdas */
+table.vacations tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  color: #1f2937;
+  vertical-align: middle;
+}
+
+/* Zebra */
+table.vacations tbody tr:nth-child(even) td {
+  background: #fcfcfd;
+}
+
+/* Hover de fila */
+table.vacations tbody tr:hover td {
+  background: #f3f4f6;
+}
+
+/* Última fila sin borde inferior */
+table.vacations tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Columna acciones (el botón) */
+table.vacations td:last-child {
+  text-align: right;
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* =========================
+   RESPONSIVE (móvil)
+   ========================= */
+@media (max-width: 640px) {
+  table.vacations thead {
+    display: none;
+  }
+
+  table.vacations,
+  table.vacations tbody,
+  table.vacations tr,
+  table.vacations td {
+    display: block;
+    width: 100%;
+  }
+
+  table.vacations tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  table.vacations tbody td {
+    border-bottom: none;
+    padding: 12px 14px;
+  }
+
+  table.vacations tbody td:nth-child(1)::before {
+    content: "Fecha de comienzo";
+    display: block;
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+
+  table.vacations tbody td:nth-child(2)::before {
+    content: "Fecha de finalización";
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+
+  table.vacations td:last-child {
+    text-align: left;
+    padding-top: 0;
+    padding-bottom: 16px;
+  }
+}
+
+/*LIST DISABLE HOURS*/
+/* Título sección */
+.h3-disableHours {
+  margin: 1rem 0.5rem 0.5rem 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+/* Lista */
+.disabledHoursList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+/* Item (cada fecha) */
+.disabledHoursList li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover */
+.disabledHoursList li:hover {
+  background: #f9fafb;
+}
+
+/* Texto de la fecha (por si se rompe en dos líneas) */
+.disabledHoursList li {
+  line-height: 1.25;
+  color: #1f2937;
+}
+
+/* Botón eliminar dentro de la lista */
+.delete-disabledHours {
+  appearance: none;
+  border: 1px solid rgba(185, 28, 28, 0.35);
+  background: rgba(239, 68, 68, 0.1);
+  color: #b91c1c;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 800;
+  white-space: nowrap;
+
+  transition:
+    transform 0.06s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.delete-disabledHours:hover {
+  background: rgba(239, 68, 68, 0.18);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.delete-disabledHours:active {
+  transform: translateY(1px);
+}
+
+/* Responsive: apila botón abajo si falta espacio */
+@media (max-width: 520px) {
+  .disabledHoursList li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .delete-disabledHours {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* =========================
    Responsive
    ========================= */
 @media (max-width: 900px) {
@@ -1293,6 +1482,97 @@ h1 {
   border: 2px solid black;
   border-radius: 5px;
   padding: 5px;
+}
+
+/*DELETE VACATIONS*/
+/* =========================
+   DIALOG (modal)
+   ========================= */
+#confirmDeleteDialog {
+  width: min(520px, calc(100% - 2rem));
+  border: none;
+  border-radius: 18px;
+  padding: 0;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Centrado: dialog ya se centra con showModal(), pero esto ayuda en browsers raros */
+#confirmDeleteDialog[open] {
+  margin: auto;
+}
+
+/* Fondo oscuro detrás */
+#confirmDeleteDialog::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+/* Contenido interno */
+#confirmDeleteDialog form {
+  padding: 22px;
+}
+
+#confirmDeleteDialog p {
+  margin: 0 0 16px;
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Botonera */
+#confirmDeleteDialog menu {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Botones del dialog */
+#confirmDeleteDialog button {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition:
+    transform 0.06s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+#confirmDeleteDialog button:hover {
+  background-color: #885252;
+}
+
+/* =========================
+   BOTÓN ELIMINAR (tabla)
+   ========================= */
+.btn-delete {
+  appearance: none;
+  border: 1px solid rgba(185, 28, 28, 0.35);
+  background: rgba(239, 68, 68, 0.1);
+  color: #b91c1c;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  transition:
+    transform 0.06s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn-delete:hover {
+  background: rgba(239, 68, 68, 0.18);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.btn-delete:active {
+  transform: translateY(1px);
 }
 
 @media only screen and (min-width: 954px) {

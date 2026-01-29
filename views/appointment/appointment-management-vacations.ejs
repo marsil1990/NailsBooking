@@ -36,6 +36,48 @@
                 <button type="submit">Elimina las horas seleccionadas</button>
             </form>
 
+            <h3 class="h3-vacations">Listado de vacaciones registradas hasta el momento</h3>
+            <table class="vacations">
+                <thead>
+                    <tr>
+                        <th>Fecha de comienzo</th>
+                        <th>Fecha de finalización</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(const date of vacations){%>
+                        <tr>
+                            <td>
+                                <%= date.datestart.toLocaleString("es-UY", { weekday: "short" , day: "2-digit" ,
+                                    month: "2-digit" , year: "numeric" }); %>
+                            </td>
+                            <td>
+                                <% const d=new Date(date.dateend.getTime() - 24 * 60 * 60 * 1000); %>
+                                    <%= d.toLocaleString("es-UY", { weekday: "short" , day: "2-digit" , month: "2-digit"
+                                        , year: "numeric" }); %>
+                            </td>
+                            <td>
+                                <button type="button" class="btn-delete" data-id="<%= date.vacation_id %>">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+
+            <h3 class="h3-disableHours">Fechas especificas desabilitadas</h3>
+            <ul class="disabledHoursList">
+                <% for(const date of dates){ %>
+                    <li>
+                        <%= date.time_disabled.toLocaleString("es-UY", { weekday: "short" , day: "2-digit" ,
+                            month: "2-digit" , year: "numeric" , hour:"numeric", minute:"numeric" }) %>
+                            <button type="button" class="delete-disabledHours"
+                                data-id="<%= date.disablehours_id %>">Eliminar</button>
+                    </li>
+                    <% } %>
+            </ul>
+
         </section>
 
 
@@ -50,5 +92,47 @@
                 </ul>
                 <% } %>
 
+
+                    <dialog id="confirmDeleteDialog">
+                        <form method="dialog">
+                            <p>¿Seguro que querés eliminar estas vacaciones?</p>
+
+                            <menu>
+                                <button value="cancel">Cancelar</button>
+                                <button id="confirmDeleteBtn" value="confirm">Eliminar</button>
+                            </menu>
+                        </form>
+                    </dialog>
+
                     <script src="../../js/scheduleNotAvailableForm.js"></script>
-                    <script src="../../js/managementReservations.js"></script>
+                    <script>
+                        const dialog = document.getElementById("confirmDeleteDialog");
+                        const confirmBtn = document.getElementById("confirmDeleteBtn");
+
+                        let vacationidToDelete = null;
+                        let disabledhoursDelete = null;
+
+                        document.addEventListener("click", (e) => {
+                            const btn = e.target.closest(".btn-delete");
+                            const btnDisabledHours = e.target.closest(".delete-disabledHours")
+                            if (!btn && !btnDisabledHours) return;
+                            vacationidToDelete = null;
+                            disabledhoursDelete = null;
+
+
+                            if (btn) {
+                                vacationidToDelete = btn.dataset.id;
+                            }
+                            else {
+                                disabledhoursDelete = btnDisabledHours.dataset.id;
+                            }
+                            console.log(vacationidToDelete, disabledhoursDelete)
+                            dialog.showModal();
+                        });
+
+                        confirmBtn.addEventListener("click", () => {
+                            if (!vacationidToDelete && !disabledhoursDelete) return;
+                            if (vacationidToDelete) { window.location.href = `deletevacation/${vacationidToDelete}`; return; }
+                            if (disabledhoursDelete) { window.location.href = `deletedisabledhours/${disabledhoursDelete}`; return; }
+                        });
+                    </script>

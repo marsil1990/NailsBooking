@@ -4,6 +4,7 @@ const reservationModel = require("../models/reservation-model");
 const serviceModel = require("../models/service-model");
 const accountModel = require("../models/account-model");
 const reservationServiceModel = require("../models/reservation-service-model");
+const vacationsModel = require("../models/vacation-model");
 const { route } = require("../routes/static");
 
 async function appointments(req, res) {
@@ -45,35 +46,23 @@ async function getManagementReservations(req, res) {
   });
 }
 
-// async function managemenReservations(req, res) {
-//   const start = new Date(req.body.startDay);
-//   const end = new Date(req.body.endDay);
-//   const insertVacation = await reservationModel.insertVacation(start, end);
-//   if (insertVacation === 1) {
-//     req.flash("notice", "Las vacaciones se han agendado correctamente");
-//     res.redirect("/appointment/managementReservations");
-//   } else {
-//     req.flash(
-//       "notice",
-//       "Las vacaciones no se han agendado correctamente, intentelo de nuevo",
-//     );
-//     res.redirect("/appointment/managementReservations");
-//   }
-// }
-
 /* MANAGEMENT VACATIONS */
 
 async function getManagementVacations(req, res) {
+  const getAlldateVacations = await vacationsModel.getAll();
+  const getDisabledHours = await reservationModel.getAlldisablehours();
   res.render("appointment/appointment-management-vacations", {
-    title: "Gestiona las reservas",
+    title: "Gestiona tus vacaciones",
     errors: null,
+    vacations: getAlldateVacations,
+    dates: getDisabledHours,
   });
 }
 
 async function managemenVacations(req, res) {
   const start = new Date(req.body.startDay);
   const end = new Date(req.body.endDay);
-
+  console.log(start, end);
   const insertVacation = await reservationModel.insertVacation(start, end);
   if (insertVacation === 1) {
     req.flash("notice", "Las vacaciones se han agendado correctamente");
@@ -283,6 +272,32 @@ async function getMyreservations(req, res) {
   }
 }
 
+async function deleteVacations(req, res) {
+  const { vacation_id } = req.params;
+  console.log(vacation_id);
+  const del = await vacationsModel.deleteByid(vacation_id);
+  if (del === 1) {
+    req.flash("notice", "Las vacaiones fueron eliminadas correctamente");
+    res.redirect("/appointment/managementVacations");
+  } else {
+    req.flash("notice", "Las vacaiones no fueron eliminadas");
+    res.redirect("/appointment/managementVacations");
+  }
+}
+
+async function deleteDisabledHours(req, res) {
+  const { disabledhours_id } = req.params;
+  console.log(disabledhours_id, req.params);
+  const del = await reservationModel.deleteDiabledHours(disabledhours_id);
+  if (del === 1) {
+    req.flash("notice", "La hora fue eliminada correctamente");
+    res.redirect("/appointment/managementVacations");
+  } else {
+    req.flash("notice", "La hora no fue eliminada correctamente");
+    res.redirect("/appointment/managementVacations");
+  }
+}
+
 module.exports = {
   appointments,
   booking,
@@ -299,4 +314,6 @@ module.exports = {
   deleteReservation,
   getReservationsClient,
   getMyreservations,
+  deleteVacations,
+  deleteDisabledHours,
 };

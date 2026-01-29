@@ -69,9 +69,7 @@ async function insertDisableHours(h) {
 
 async function getAlldisablehours() {
   try {
-    const result = await pool.query(
-      "SELECT time_disabled FROM public.disableHours",
-    );
+    const result = await pool.query("SELECT * FROM public.disableHours");
     return result.rows;
   } catch (error) {
     console.error("DB error :", error.message);
@@ -171,6 +169,18 @@ async function getMyOwnReservations(account_id) {
   }
 }
 
+async function deleteDiabledHours(disabledhours_id) {
+  try {
+    const query =
+      "DELETE FROM public.disablehours WHERE disablehours_id = $1 RETURNING*";
+    const result = await pool.query(query, [disabledhours_id]);
+    return result.rowCount;
+  } catch (error) {
+    console.error("DB error :", error.message);
+    throw error;
+  }
+}
+
 module.exports = {
   getReservationsDates,
   insertBook,
@@ -185,4 +195,5 @@ module.exports = {
   getDateForDeleteReservation,
   deleteReservationByid,
   getMyOwnReservations,
+  deleteDiabledHours,
 };
