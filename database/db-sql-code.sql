@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS public.reservations(
 );
 CREATE TABLE IF NOT EXISTS public.reservations_services(
     reservation_id INTEGER NOT NULL REFERENCES reservations(reservation_id) ON DELETE CASCADE,
-    service_id INTEGER NOT NULL REFERENCES services(service_id) ON DELETE RESTRICT,
+    service_id INTEGER NOT NULL REFERENCES services(serivce_id) ON DELETE RESTRICT,
     PRIMARY KEY (reservation_id, service_id)
 );
 CREATE TABLE IF NOT EXISTS public.vacation(
